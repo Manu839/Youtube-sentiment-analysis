@@ -1,3 +1,101 @@
+# 🎥 YouTube Sentiment Analysis App
+
+A full-stack application that analyzes the sentiment of comments on YouTube videos using the Google YouTube Data API and VADER sentiment analysis. The app features a React + Tailwind CSS frontend and a Python Flask backend.
+
+---
+
+## 🚀 Features
+
+- 🔗 Submit any YouTube video link
+- 💬 Scrape comments using the YouTube Data API
+- 🤖 Perform sentiment analysis (Positive, Negative, Neutral) using VADER
+- 📊 Display sentiment results in Bar and Pie Charts
+- 📈 Show video stats like views, likes, comments
+- 👤 Show channel info and description
+- 🌿 Light green-themed, responsive UI
+
+---
+
+## 🧱 Tech Stack
+
+### 🖥 Frontend
+- React.js
+- Tailwind CSS
+- Vite
+- Chart rendering with Plotly (via base64 images)
+  
+### 🔥 Backend
+- Python 3.10+
+- Flask
+- Flask-CORS
+- NLTK (VADER SentimentIntensityAnalyzer)
+- Pandas & CSV handling
+- Plotly for chart generation
+- Google API Client (`google-api-python-client`)
+
+---
+
+## ⚙️ Setup Instructions
+
+### 🔧 Prerequisites
+
+- Node.js (v18 or above)
+- Python (3.10 or above)
+- Google Developer Account with YouTube Data API enabled
+- A valid YouTube Data API key
+
+---
+
+### 📁 Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/yt-sentiment-analysis.git
+cd yt-sentiment-analysis
+```
+
+## 📦 Backend Setup (Flask)
+###🔹 Navigate to backend directory:
+
+``` bash
+cd backend
+python -m venv env
+source env/bin/activate   # Or: env\Scripts\activate on Windows
+pip install -r requirements.txt
+```
+
+### 🔹 Set your API Key
+
+-  DEVELOPER_KEY = "YOUR_YOUTUBE_API_KEY_HERE"
+  
+### 🔹 Run the Flask server
+```bash
+python app.py
+```
+- Server will run at: http://localhost:5000
+
+##🌐 Frontend Setup (React + Vite)
+
+###🔹 Navigate to frontend directory:
+``` bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend runs at: http://localhost:5173
+
+## 🐛 Troubleshooting
+- Error 403: commentsDisabled – This video has comments disabled.
+- [SSL: WRONG_VERSION_NUMBER] – Try switching network or disabling proxy/VPN.
+- Frontend not showing results – Check backend logs and CORS setup.
+- 500 errors – Make sure API key is valid, and YouTube quotas aren’t exhausted.
+
+##💡 Future Improvements
+- OAuth2 user authentication
+- Show most liked/positive/negative comments
+- Download report as PDF
+- Dark mode theme
+- Multi-language sentiment support
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
