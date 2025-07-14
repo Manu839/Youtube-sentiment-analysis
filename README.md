@@ -54,7 +54,7 @@ cd yt-sentiment-analysis
 ```
 
 ## 📦 Backend Setup (Flask)
-###🔹 Navigate to backend directory:
+### 🔹 Navigate to backend directory:
 
 ``` bash
 cd backend
@@ -65,7 +65,7 @@ pip install -r requirements.txt
 
 ### 🔹 Set your API Key
 
--  DEVELOPER_KEY = "YOUR_YOUTUBE_API_KEY_HERE"
+- DEVELOPER_KEY = "YOUR_YOUTUBE_API_KEY_HERE"
   
 ### 🔹 Run the Flask server
 ```bash
@@ -73,9 +73,9 @@ python app.py
 ```
 - Server will run at: http://localhost:5000
 
-##🌐 Frontend Setup (React + Vite)
+## 🌐 Frontend Setup (React + Vite)
 
-###🔹 Navigate to frontend directory:
+### 🔹 Navigate to frontend directory:
 ``` bash
 cd frontend
 npm install
@@ -89,7 +89,7 @@ Frontend runs at: http://localhost:5173
 - Frontend not showing results – Check backend logs and CORS setup.
 - 500 errors – Make sure API key is valid, and YouTube quotas aren’t exhausted.
 
-##💡 Future Improvements
+## 💡 Future Improvements
 - OAuth2 user authentication
 - Show most liked/positive/negative comments
 - Download report as PDF
