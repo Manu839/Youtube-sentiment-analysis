@@ -1,15 +1,19 @@
 import csv, ssl, time, warnings
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import os
+from dotenv import load_dotenv
 
 warnings.filterwarnings("ignore")
 
 # ────────────────────────────────────────────────────────────
 # 1.  CONFIG
 # ────────────────────────────────────────────────────────────
-DEVELOPER_KEY              = "AIzaSyCEr1rWLyGBIFGXT1zLEraQuOkH7CEyaxU"
-YOUTUBE_API_SERVICE_NAME    = "youtube"
-YOUTUBE_API_VERSION         = "v3"
+load_dotenv()
+
+DEVELOPER_KEY = os.getenv("DEVELOPER_KEY")
+YOUTUBE_API_SERVICE_NAME = os.getenv("YOUTUBE_API_SERVICE_NAME")
+YOUTUBE_API_VERSION= os.getenv("YOUTUBE_API_VERSION")       = "v3"
 
 import google.auth.transport.requests
 from googleapiclient.discovery import build
