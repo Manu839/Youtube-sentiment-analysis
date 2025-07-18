@@ -8,7 +8,7 @@ from comment import (
 import os
 
 app = Flask(__name__)
-CORS(app)  
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 def delete_non_matching_csv_files(directory_path, video_id):
     for file_name in os.listdir(directory_path):
@@ -19,27 +19,46 @@ def delete_non_matching_csv_files(directory_path, video_id):
 def index():
     try:
         youtube_link = request.json.get('youtube_link')
+        print("✅ Received request JSON:", request.json)
+
         video_id = extract_video_id(youtube_link)
+        print("🎯 Extracted video ID:", video_id)
 
         if not video_id:
             return jsonify({'error': 'Invalid YouTube link'}), 400
 
         channel_id = get_channel_id(video_id)
+        print("📺 Channel ID:", channel_id)
+
         directory_path = os.getcwd()
-        
+        print("📁 Current working directory:", directory_path)
+
         try:
+            print("📥 Downloading comments...")
             csv_file = save_video_comments_to_csv(video_id)
+            print("✅ Comments saved to:", csv_file)
         except ValueError as ve:
-            return jsonify({'error': str(ve)}), 403  # comments disabled
-        
+            return jsonify({'error': str(ve)}), 403
+
         delete_non_matching_csv_files(directory_path, video_id)
+        print("🧹 Old CSVs cleaned up.")
 
+        print("📊 Fetching channel info...")
         channel_info = get_channel_info(youtube, channel_id)
-        stats = get_video_stats(video_id)
-        results = analyze_sentiment(csv_file)
+        print("✅ Channel info fetched.")
 
+        print("📈 Getting video stats...")
+        stats = get_video_stats(video_id)
+        print("✅ Stats received.")
+
+        print("🧠 Analyzing sentiment...")
+        results = analyze_sentiment(csv_file)
+        print("✅ Sentiment analysis complete:", results)
+
+        print("🖼 Generating charts...")
         bar_chart_image = generate_bar_chart(results)
         pie_chart_image = generate_pie_chart(results)
+        print("✅ Charts generated.")
 
         return jsonify({
             "video_id": video_id,
@@ -54,5 +73,8 @@ def index():
         print("❌ Error occurred:", e)
         return jsonify({"error": str(e)}), 500
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    os.environ["FLASK_RUN_FROM_CLI"] = "false"
+    app.run(debug=True, use_reloader=False)

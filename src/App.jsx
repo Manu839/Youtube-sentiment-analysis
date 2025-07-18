@@ -36,12 +36,15 @@ function App() {
     setData(null);
 
     try {
-      const response = await fetch('http://localhost:5000/', {
-        
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ youtube_link: link })
-      });
+const response = await fetch('http://localhost:5000/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ youtube_link: link }),
+  mode: 'cors'
+});
+
         console.log("🟠 fetch returned – status:", response.status); 
 
       const result = await response.json();

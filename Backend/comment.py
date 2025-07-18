@@ -13,7 +13,7 @@ load_dotenv()
 
 DEVELOPER_KEY = os.getenv("DEVELOPER_KEY")
 YOUTUBE_API_SERVICE_NAME = os.getenv("YOUTUBE_API_SERVICE_NAME")
-YOUTUBE_API_VERSION= os.getenv("YOUTUBE_API_VERSION")       = "v3"
+YOUTUBE_API_VERSION = os.getenv("YOUTUBE_API_VERSION", "v3")
 
 import google.auth.transport.requests
 from googleapiclient.discovery import build
@@ -24,14 +24,13 @@ import googleapiclient.discovery
 import googleapiclient.errors
 
 # Force plain HTTP (less secure - dev only)
-http = httplib2.Http(disable_ssl_certificate_validation=True)
+# http = httplib2.Http(disable_ssl_certificate_validation=True)
 
 youtube = build(
     YOUTUBE_API_SERVICE_NAME,
     YOUTUBE_API_VERSION,
     developerKey=DEVELOPER_KEY,
-    cache_discovery=False,
-    http=http
+    cache_discovery=False
 )
 
 # ────────────────────────────────────────────────────────────
