@@ -1,4 +1,3 @@
-import csv
 import re
 import pandas as pd
 import nltk
@@ -8,49 +7,53 @@ import plotly.graph_objects as go
 import base64
 from io import BytesIO
 
+nltk.download('vader_lexicon')
 
 def extract_video_id(youtube_link):
     video_id_regex = r"^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu.be\/)([a-zA-Z0-9_-]{11})"
     match = re.search(video_id_regex, youtube_link)
-    if match:
-        video_id = match.group(1)
-        return video_id
-    else:
-        return None
+    return match.group(1) if match else None
 
-def analyze_sentiment(csv_file):
+def analyze_sentiment(comments_list):
     sid = SentimentIntensityAnalyzer()
-    comments = []
-
-    with open(csv_file, 'r', encoding='utf-8-sig') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            comments.append(row['Comment'])
 
     num_neutral = 0
     num_positive = 0
     num_negative = 0
 
-    for comment in comments:
+    for comment_data in comments_list:
+        comment = comment_data.get('text', '')
         sentiment_scores = sid.polarity_scores(comment)
+
         if sentiment_scores['compound'] == 0.0:
             num_neutral += 1
+            sentiment = 'neutral'
         elif sentiment_scores['compound'] > 0.0:
             num_positive += 1
+            sentiment = 'positive'
         else:
             num_negative += 1
+            sentiment = 'negative'
 
-    results = {'num_neutral': num_neutral, 'num_positive': num_positive, 'num_negative': num_negative}
+        comment_data['sentiment'] = sentiment
+        comment_data['compound'] = sentiment_scores['compound']
+
+    results = {
+        'num_neutral': num_neutral,
+        'num_positive': num_positive,
+        'num_negative': num_negative
+    }
+
     return results
 
 def generate_bar_chart(results):
-    num_neutral = results.get('num_neutral', 0)
-    num_positive = results.get('num_positive', 0)
-    num_negative = results.get('num_negative', 0)
-
     df = pd.DataFrame({
         'Sentiment': ['Positive', 'Negative', 'Neutral'],
-        'Number of Comments': [num_positive, num_negative, num_neutral]
+        'Number of Comments': [
+            results.get('num_positive', 0),
+            results.get('num_negative', 0),
+            results.get('num_neutral', 0)
+        ]
     })
 
     fig = px.bar(
@@ -58,11 +61,9 @@ def generate_bar_chart(results):
         x='Sentiment',
         y='Number of Comments',
         color='Sentiment',
-        color_discrete_sequence=['#4CAF50', '#FF5733', '#00B3B6'],  # Updated color scheme
-        labels={'Number of Comments': 'Number of Comments'},
+        color_discrete_sequence=['#4CAF50', '#FF5733', '#00B3B6'],
     )
 
-    
     fig.update_layout(
         title='Sentiment Analysis Results (Bar Plot)',
         margin=dict(t=60, r=20, b=60, l=40),
@@ -74,19 +75,16 @@ def generate_bar_chart(results):
     return save_chart_image(fig)
 
 def generate_pie_chart(results):
-    num_neutral = results.get('num_neutral', 0)
-    num_positive = results.get('num_positive', 0)
-    num_negative = results.get('num_negative', 0)
-
-    labels = ['Neutral', 'Positive', 'Negative']
-    values = [num_neutral, num_positive, num_negative]
-
     fig = go.Figure(data=[go.Pie(
-        labels=labels,
-        values=values,
+        labels=['Neutral', 'Positive', 'Negative'],
+        values=[
+            results.get('num_neutral', 0),
+            results.get('num_positive', 0),
+            results.get('num_negative', 0)
+        ],
         textinfo='label+percent',
-        marker=dict(colors=['#FFD700', '#90EE90', '#FF6347']),  
-        hole=0.5, 
+        marker=dict(colors=['#FFD700', '#90EE90', '#FF6347']),
+        hole=0.5,
     )])
 
     fig.update_layout(
@@ -100,12 +98,8 @@ def generate_pie_chart(results):
     return save_chart_image(fig)
 
 def save_chart_image(fig):
-    # Save the chart to a BytesIO object
     image_stream = BytesIO()
     fig.write_image(image_stream, format="png")
     image_stream.seek(0)
-
-    # Convert the image to base64 for embedding in HTML
     encoded_image = base64.b64encode(image_stream.read()).decode("utf-8")
-
     return f"data:image/png;base64,{encoded_image}"
