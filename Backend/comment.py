@@ -22,8 +22,8 @@ youtube = build(
     cache_discovery=False
 )
 
-# MongoDB setup
-client = MongoClient("mongodb://localhost:27017")
+# MongoDB setup = mongodb://localhost:27017
+client = MongoClient("")
 db = client["youtube_sentiment"]
 comments_collection = db["comments"]
 
