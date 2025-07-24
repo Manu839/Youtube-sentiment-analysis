@@ -6,12 +6,13 @@ A full-stack application that analyzes the sentiment of comments on YouTube vide
 
 ## 🚀 Features
 
-- 🔗 Submit any YouTube video link
-- 💬 Scrape comments using the YouTube Data API
-- 🤖 Perform sentiment analysis (Positive, Negative, Neutral) using VADER
-- 📊 Display sentiment results in Bar and Pie Charts
-- 📈 Show video stats like views, likes, comments
-- 👤 Show channel info and description
+- 🔗 Submit any YouTube video link  
+- 💬 Scrape comments using the YouTube Data API  
+- 🧠 Comments are stored in **MongoDB** for caching and future reuse  
+- 🤖 Perform sentiment analysis (Positive, Negative, Neutral) using VADER  
+- 📊 Display sentiment results in Bar and Pie Charts  
+- 📈 Show video stats like views, likes, comments  
+- 👤 Show channel info and description  
 - 🌿 Light green-themed, responsive UI
 
 ---
@@ -19,19 +20,20 @@ A full-stack application that analyzes the sentiment of comments on YouTube vide
 ## 🧱 Tech Stack
 
 ### 🖥 Frontend
-- React.js
-- Tailwind CSS
-- Vite
+- React.js  
+- Tailwind CSS  
+- Vite  
 - Chart rendering with Plotly (via base64 images)
-  
+
 ### 🔥 Backend
-- Python 3.10+
-- Flask
-- Flask-CORS
-- NLTK (VADER SentimentIntensityAnalyzer)
-- Pandas & CSV handling
-- Plotly for chart generation
-- Google API Client (`google-api-python-client`)
+- Python 3.10+  
+- Flask  
+- Flask-CORS  
+- NLTK (VADER SentimentIntensityAnalyzer)  
+- Pandas & CSV handling  
+- Plotly for chart generation  
+- Google API Client (`google-api-python-client`)  
+- **MongoDB (via PyMongo)** – for storing YouTube comments
 
 ---
 
@@ -39,10 +41,11 @@ A full-stack application that analyzes the sentiment of comments on YouTube vide
 
 ### 🔧 Prerequisites
 
-- Node.js (v18 or above)
-- Python (3.10 or above)
-- Google Developer Account with YouTube Data API enabled
-- A valid YouTube Data API key
+- Node.js (v18 or above)  
+- Python (3.10 or above)  
+- Google Developer Account with YouTube Data API enabled  
+- A valid YouTube Data API key  
+- **MongoDB installed locally or hosted (MongoDB Atlas)**
 
 ---
 
@@ -65,7 +68,9 @@ pip install -r requirements.txt
 
 ### 🔹 Set your API Key
 
-- DEVELOPER_KEY = "YOUR_YOUTUBE_API_KEY_HERE"
+- DEVELOPER_KEY=YOUR_YOUTUBE_API_KEY_HERE
+- MONGO_URI=mongodb://localhost:27017   # Or your MongoDB Atlas URI
+- MONGO_DB=yt_sentiment
   
 ### 🔹 Run the Flask server
 ```bash
