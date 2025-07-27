@@ -52,7 +52,7 @@ A full-stack application that analyzes the sentiment of comments on YouTube vide
 ### 📁 Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/yt-sentiment-analysis.git
+git clone https://github.com/Manu839/Youtube-sentiment-analysis.git
 cd yt-sentiment-analysis
 ```
 
