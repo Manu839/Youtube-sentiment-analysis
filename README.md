@@ -1,4 +1,4 @@
-# 🎥 YouTube Sentiment Analysis App
+<img width="1253" height="843" alt="image" src="https://github.com/user-attachments/assets/6e9f4bd5-7574-4359-953b-1fba029641c2" /># 🎥 YouTube Sentiment Analysis App
 
 A full-stack application that analyzes the sentiment of comments on YouTube videos using the Google YouTube Data API and VADER sentiment analysis. The app features a React + Tailwind CSS frontend and a Python Flask backend.
 
@@ -16,6 +16,18 @@ A full-stack application that analyzes the sentiment of comments on YouTube vide
 - 🌿 Light green-themed, responsive UI
 
 ---
+
+## Results 
+
+<img width="1462" height="792" alt="Screenshot 2025-07-29 123023" src="https://github.com/user-attachments/assets/646154d6-15d6-496d-91d7-1ae69294c0c8" />
+
+<img width="1351" height="827" alt="Screenshot 2025-07-29 123354" src="https://github.com/user-attachments/assets/11fa8c30-8487-469c-8451-455a852a6a20" />
+
+<img width="1253" height="843" alt="Screenshot 2025-07-29 123429" src="https://github.com/user-attachments/assets/63837fbb-4d2b-4a17-b5d2-ffed3952fc22" />
+
+<img width="462" height="643" alt="backend" src="https://github.com/user-attachments/assets/d72da2ff-4024-41f3-9e0c-b1487370534b" />
+
+
 
 ## 🧱 Tech Stack
 
